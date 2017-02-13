@@ -5,11 +5,8 @@
 #include <boost/optional.hpp>
 #include <boost/optional/optional_io.hpp>
 
-#include <boost/xpressive/xpressive.hpp>
 
 namespace json_parser{ namespace detail{ 
-
-        namespace xpr = boost::xpressive;
 
         #define TOKEN_TYPES/**/\
                 (left_curl)\

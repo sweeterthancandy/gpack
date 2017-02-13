@@ -7,7 +7,6 @@
 #include "json_parser_io.h"
 #include "json_parser_tokenizer.h"
 #include "json_parser_fast_parser.h"
-#include "json_parser_xpr_parser.h"
 
 namespace json_parser{
         template<class Iter>
