@@ -1,0 +1,136 @@
+                              Gpack Documentation
+                              ===================
+
+Gpack is a C++ header only library for configuration a subset of 
+seirializations, aimed to both be configured to write msgpack, and 
+also something similar to igbinary, using an EDSL.
+
+                                Directory Layout
+                                ================
+
+        json_parser/ 
+                This was a standalone json_parser that I wrote, and then 
+some of the good parts where copied in gpack.
+
+        vt*.h
+                vt is for variant tree, with vt.h defining the tree, and then 
+io with vt_to_string.h, and then makers in vt_builder.h and vt_context.h
+
+        cli*.h 
+                These files arn't part of gpack, but are the test driver written
+
+        msgpack.h
+                This is the configuration file for the msgpack schema
+        
+        schema.h
+                This is the confiuration file for the string referencing schema
+
+
+
+                                    Concepts
+                                    ========
+
+        The serialization is concerned with of creating an injective mapping 
+                M : T -> B^n   for some n 
+        Where
+                T is a recursive tree of pre defiend primitives,
+                B = [0,255]
+        such that there exists a M': B^n -> T such that M'(M(T)) = T for all T
+
+        Where M is the serialization, and M' is the deserilaization (ie M' the 
+        domain of M' is the codomain of M).
+
+        T is isomorphic to a json file, ie json has the grammar ( with transform )
+
+                T           -> root
+                root        -> obj
+                obj         -> arary                             
+                             | map                               
+                array       -> obj_or_prim*         {put(tag::array_,array.size)}
+                map         -> pair*                {put(tag::map_,map.size)}
+                pair        -> prim obj_or_prim                
+                prim        -> int                  {put(tag::int_,int.value)}
+                             | float                {put(tag::float_,float.value)}
+                             | string               {put(tag::string_,string.size,string.vargs)}
+                             | bool                 {put(tag::bool_,bool.value)}
+                             | null                 {put(tag::null_)}
+                obj_or_prim -> obj | prim
+
+        Now for put put for each tag, the schema can choose multiple serializations 
+        by choosing the number of bits to use for the type, and the number of bits
+        for the data.
+
+        Now put dispatches dependong on the tag, and the params, for example 
+        there can be different serialzations for different values, which result 
+        in smaller serialization
+
+        Firstly if you look in the format.h file, these are the formats of the 
+        different serializations
+                t -> type
+                v/s -> value/size
+                vargs -> the next "size" bytes are this one type
+
+        The type is one  
+
+                1) t           - first and only byte specifies a type
+                2) tv/tv1      - first and only byte specific type and value
+                5) t_v         - first byte is type, then fixed number of tailing 
+                                 byte is value
+                6) t_s_vargs   - first byte is type, then fixed number of tailing
+                                 byte is size, then next size byte is the variable 
+                                 byte string
+                6) ts_vargs    - first byte is type and size, then next size byte
+                                 is the variable byte string
+
+        In the above tokens the underscores represents byte boundries, and vargs is 
+        only for either binary_ or string_ types
+                
+
+                         Insert / Ref
+                         ============
+
+        The duplicate string optimizatrion is implmeneted by allow the following transform
+                Trans(T) : T -> T' 
+                        
+                        
+                
+                        where 
+
+                T           -> root
+                root        -> obj
+                obj         -> arary                             
+                             | map                               
+                array       -> obj_or_prim*         {put(tag::array_,array.size)}
+                map         -> pair*                {put(tag::map_,map.size)}
+                pair        -> prim obj_or_prim                
+                             | float                {put(tag::float_,float.value)}
+                             | string               {put(tag::string_,string.size,string.vargs)}
+                             | bool                 {put(tag::bool_,bool.value)}
+                             | null                 {put(tag::null_)}
+                             | insert               
+                             | ref_                 {put(tag::ref_,ref.token)}
+                insert      -> prim                 {put(tag::insert_,insert.token)}
+                obj_or_prim -> obj | prim
+
+        Where ref.token and insert.token are integers such that with serialzation and deserialization,
+        there is some state ( reference table ), such that the mapping is surjective
+        
+        for example, a simple implementation is to give first occurence of each string a unique
+        integer, then each sussesive duplicate string can have that as it's ref.token, although
+        this isn't the appoach I've used, it's just that the policy for the tokens isn't part
+        of the mechanism
+
+
+
+                
+
+                
+
+
+                         
+                
+                        
+
+
+
+size
