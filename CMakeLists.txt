@@ -8,6 +8,8 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -ggdb3")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
 
 aux_source_directory(src sources)
+aux_source_directory(test test_sources)
+
 include_directories(include . )
 
 find_package(GTest REQUIRED)
@@ -20,6 +22,8 @@ find_package(Boost REQUIRED  program_options COMPONENTS)
 
 include_directories(${Boost_INCLUDE_DIRS})
 
-add_executable( gpack ${sources} )
+add_executable( gpack_test ${test_sources} )
+target_link_libraries(gpack_test GTest::GTest GTest::Main ${Boost_LIBRARIES})
 
-target_link_libraries(gpack GTest::GTest GTest::Main ${Boost_LIBRARIES})
+add_executable( gpack ${sources} )
+target_link_libraries(gpack ${Boost_LIBRARIES})

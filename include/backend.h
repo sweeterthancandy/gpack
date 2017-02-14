@@ -11,7 +11,40 @@
 #include <boost/format.hpp>
 
 namespace gpack{ 
+
+	// simple back, nice for debugging
+        struct vector_backend{
+                using char_vec_t = std::vector<char>;
+
+                void put(char c){
+			buffer_.emplace_back(c);
+                }
+                void write(const char* ptr, size_t n){
+			std::copy( ptr, ptr+n, std::back_inserter(buffer_));
+                }
+                void write(std::string const& str){
+			boost::copy( str, std::back_inserter(buffer_));
+                }
+                void up(){}
+                void down(){}
+                size_t bytes()const{ return buffer_.size(); }
+                void reset(){}
+
+		decltype(auto) as_vector()const{ return buffer_; }
+        private:
+                std::vector<char> buffer_;
+        };
+
+
+
+
+
+
         // this is what the binary stream is written to
+	// 
+	// It's going to be important that I don't buffer several GB of data
+	// at once, so this needs to be continously dispatched (w.r.t. to 
+	// some buffering policy later)
         struct dispatch_backend{
                 using char_vec_t = std::vector<char>;
                 using signal_t = boost::signals2::signal<void(char_vec_t)>;
@@ -61,6 +94,10 @@ namespace gpack{
                 size_t count_{0};
         };
 
+
+
+
+	// These are object which can connect ot to the dispatch_backend
         struct cout_subscriber : std::enable_shared_from_this<cout_subscriber>
         {
                 void connect( dispatch_backend& that){

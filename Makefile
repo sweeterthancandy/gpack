@@ -123,6 +123,19 @@ gpack/fast:
 	$(MAKE) -f CMakeFiles/gpack.dir/build.make CMakeFiles/gpack.dir/build
 .PHONY : gpack/fast
 
+#=============================================================================
+# Target rules for targets named gpack_test
+
+# Build rule for target.
+gpack_test: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gpack_test
+.PHONY : gpack_test
+
+# fast build rule for target.
+gpack_test/fast:
+	$(MAKE) -f CMakeFiles/gpack_test.dir/build.make CMakeFiles/gpack_test.dir/build
+.PHONY : gpack_test/fast
+
 src/cli_driver.o: src/cli_driver.cpp.o
 
 .PHONY : src/cli_driver.o
@@ -231,6 +244,60 @@ src/gpack.cpp.s:
 	$(MAKE) -f CMakeFiles/gpack.dir/build.make CMakeFiles/gpack.dir/src/gpack.cpp.s
 .PHONY : src/gpack.cpp.s
 
+test/byte.o: test/byte.cpp.o
+
+.PHONY : test/byte.o
+
+# target to build an object file
+test/byte.cpp.o:
+	$(MAKE) -f CMakeFiles/gpack_test.dir/build.make CMakeFiles/gpack_test.dir/test/byte.cpp.o
+.PHONY : test/byte.cpp.o
+
+test/byte.i: test/byte.cpp.i
+
+.PHONY : test/byte.i
+
+# target to preprocess a source file
+test/byte.cpp.i:
+	$(MAKE) -f CMakeFiles/gpack_test.dir/build.make CMakeFiles/gpack_test.dir/test/byte.cpp.i
+.PHONY : test/byte.cpp.i
+
+test/byte.s: test/byte.cpp.s
+
+.PHONY : test/byte.s
+
+# target to generate assembly for a file
+test/byte.cpp.s:
+	$(MAKE) -f CMakeFiles/gpack_test.dir/build.make CMakeFiles/gpack_test.dir/test/byte.cpp.s
+.PHONY : test/byte.cpp.s
+
+test/formats.o: test/formats.cpp.o
+
+.PHONY : test/formats.o
+
+# target to build an object file
+test/formats.cpp.o:
+	$(MAKE) -f CMakeFiles/gpack_test.dir/build.make CMakeFiles/gpack_test.dir/test/formats.cpp.o
+.PHONY : test/formats.cpp.o
+
+test/formats.i: test/formats.cpp.i
+
+.PHONY : test/formats.i
+
+# target to preprocess a source file
+test/formats.cpp.i:
+	$(MAKE) -f CMakeFiles/gpack_test.dir/build.make CMakeFiles/gpack_test.dir/test/formats.cpp.i
+.PHONY : test/formats.cpp.i
+
+test/formats.s: test/formats.cpp.s
+
+.PHONY : test/formats.s
+
+# target to generate assembly for a file
+test/formats.cpp.s:
+	$(MAKE) -f CMakeFiles/gpack_test.dir/build.make CMakeFiles/gpack_test.dir/test/formats.cpp.s
+.PHONY : test/formats.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -240,6 +307,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... gpack"
+	@echo "... gpack_test"
 	@echo "... src/cli_driver.o"
 	@echo "... src/cli_driver.i"
 	@echo "... src/cli_driver.s"
@@ -252,6 +320,12 @@ help:
 	@echo "... src/gpack.o"
 	@echo "... src/gpack.i"
 	@echo "... src/gpack.s"
+	@echo "... test/byte.o"
+	@echo "... test/byte.i"
+	@echo "... test/byte.s"
+	@echo "... test/formats.o"
+	@echo "... test/formats.i"
+	@echo "... test/formats.s"
 .PHONY : help
 
 

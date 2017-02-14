@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 #include <boost/preprocessor.hpp>
 #include <boost/mpl/range_c.hpp>
 #include <boost/mpl/fold.hpp>

@@ -1,12 +1,15 @@
 #pragma once
 
 #include <cassert>
+#include <cstdint>
+#include <algorithm>
 
 #include "base.h"
 #include "byte.h"
 
 namespace gpack{ namespace formats{
 
+        // This represents a solid byte
         struct t{
                 template<class Primitive, class Stream, class Byte, class Value>
                 void serialize(Stream&& stream, Byte&&, Value&&){
