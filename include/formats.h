@@ -10,9 +10,12 @@
 namespace gpack{ namespace formats{
 
         // This represents a solid byte
+        //
+        // The primitive should only really be a byte
         struct t{
                 template<class Primitive, class Stream, class Byte, class Value>
                 void serialize(Stream&& stream, Byte&&, Value&&){
+                        //static_assert( sizeof(Primitive) == 1 , "bad serialization");
                         stream.put( Byte::value );
                 }
                 // NOTE That primitive has special semantics here

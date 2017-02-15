@@ -30,7 +30,7 @@ namespace gpack{
                 size_t bytes()const{ return buffer_.size(); }
                 void reset(){}
 
-		decltype(auto) as_vector()const{ return buffer_; }
+		decltype(auto) get()const{ return buffer_; }
         private:
                 std::vector<char> buffer_;
         };

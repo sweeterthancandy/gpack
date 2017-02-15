@@ -16,6 +16,10 @@
 #include "byte.h"
 
 namespace gpack{
+	
+	// For deserialzing, it's dependant on the scheme to be surjective, that is
+	// that for every json object J, the mapping M : J -> J', has a corresponding
+	// mapping M' : J' -> J, such that M(M'(J)) = J, that is M, is invertiable.
 
         namespace mpl = boost::mpl;
 
@@ -107,10 +111,9 @@ namespace gpack{
                         });
                         return ctx_result;
                 }
-                // precondtion: first != last
                 template <class Context>
                 iter_type parse( Context& ctx, iter_type first, iter_type last ) {
-                        assert( first != last && "precondtion failed" );
+                        assert( first != last && "precondition failed" );
                         do {
                                 iter_type next_first = first;
                                 switch ( static_cast<unsigned char>( *first ) ) {
