@@ -10,7 +10,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
 aux_source_directory(cli cli_sources)
 aux_source_directory(test test_sources)
 
-include_directories(include . )
+include_directories(include lib/json_parser )
 
 find_package(GTest REQUIRED)
 

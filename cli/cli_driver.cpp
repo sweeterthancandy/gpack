@@ -129,7 +129,7 @@ int cli_driver::run(){
                 json_string = vm_["input-string"].as<std::string>();
         }
         gpack::vt_builder m;
-        if( ! json_parser::parse(m, json_string.begin(), json_string.end()))
+        if( ! json_parser::try_parse(m, json_string.begin(), json_string.end()))
         {
                 BOOST_THROW_EXCEPTION(std::domain_error("unable to parse json"));
         }

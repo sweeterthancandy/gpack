@@ -1,0 +1,3 @@
+[submodule "lib/json_parser"]
+	path = lib/json_parser
+	url = git@github.com:sweeterthancandy/json_parser.git
