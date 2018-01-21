@@ -111,19 +111,6 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named gpack
-
-# Build rule for target.
-gpack: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 gpack
-.PHONY : gpack
-
-# fast build rule for target.
-gpack/fast:
-	$(MAKE) -f CMakeFiles/gpack.dir/build.make CMakeFiles/gpack.dir/build
-.PHONY : gpack/fast
-
-#=============================================================================
 # Target rules for targets named gpack_test
 
 # Build rule for target.
@@ -135,114 +122,6 @@ gpack_test: cmake_check_build_system
 gpack_test/fast:
 	$(MAKE) -f CMakeFiles/gpack_test.dir/build.make CMakeFiles/gpack_test.dir/build
 .PHONY : gpack_test/fast
-
-cli/cli_driver.o: cli/cli_driver.cpp.o
-
-.PHONY : cli/cli_driver.o
-
-# target to build an object file
-cli/cli_driver.cpp.o:
-	$(MAKE) -f CMakeFiles/gpack.dir/build.make CMakeFiles/gpack.dir/cli/cli_driver.cpp.o
-.PHONY : cli/cli_driver.cpp.o
-
-cli/cli_driver.i: cli/cli_driver.cpp.i
-
-.PHONY : cli/cli_driver.i
-
-# target to preprocess a source file
-cli/cli_driver.cpp.i:
-	$(MAKE) -f CMakeFiles/gpack.dir/build.make CMakeFiles/gpack.dir/cli/cli_driver.cpp.i
-.PHONY : cli/cli_driver.cpp.i
-
-cli/cli_driver.s: cli/cli_driver.cpp.s
-
-.PHONY : cli/cli_driver.s
-
-# target to generate assembly for a file
-cli/cli_driver.cpp.s:
-	$(MAKE) -f CMakeFiles/gpack.dir/build.make CMakeFiles/gpack.dir/cli/cli_driver.cpp.s
-.PHONY : cli/cli_driver.cpp.s
-
-cli/cli_msgpack.o: cli/cli_msgpack.cpp.o
-
-.PHONY : cli/cli_msgpack.o
-
-# target to build an object file
-cli/cli_msgpack.cpp.o:
-	$(MAKE) -f CMakeFiles/gpack.dir/build.make CMakeFiles/gpack.dir/cli/cli_msgpack.cpp.o
-.PHONY : cli/cli_msgpack.cpp.o
-
-cli/cli_msgpack.i: cli/cli_msgpack.cpp.i
-
-.PHONY : cli/cli_msgpack.i
-
-# target to preprocess a source file
-cli/cli_msgpack.cpp.i:
-	$(MAKE) -f CMakeFiles/gpack.dir/build.make CMakeFiles/gpack.dir/cli/cli_msgpack.cpp.i
-.PHONY : cli/cli_msgpack.cpp.i
-
-cli/cli_msgpack.s: cli/cli_msgpack.cpp.s
-
-.PHONY : cli/cli_msgpack.s
-
-# target to generate assembly for a file
-cli/cli_msgpack.cpp.s:
-	$(MAKE) -f CMakeFiles/gpack.dir/build.make CMakeFiles/gpack.dir/cli/cli_msgpack.cpp.s
-.PHONY : cli/cli_msgpack.cpp.s
-
-cli/cli_schema.o: cli/cli_schema.cpp.o
-
-.PHONY : cli/cli_schema.o
-
-# target to build an object file
-cli/cli_schema.cpp.o:
-	$(MAKE) -f CMakeFiles/gpack.dir/build.make CMakeFiles/gpack.dir/cli/cli_schema.cpp.o
-.PHONY : cli/cli_schema.cpp.o
-
-cli/cli_schema.i: cli/cli_schema.cpp.i
-
-.PHONY : cli/cli_schema.i
-
-# target to preprocess a source file
-cli/cli_schema.cpp.i:
-	$(MAKE) -f CMakeFiles/gpack.dir/build.make CMakeFiles/gpack.dir/cli/cli_schema.cpp.i
-.PHONY : cli/cli_schema.cpp.i
-
-cli/cli_schema.s: cli/cli_schema.cpp.s
-
-.PHONY : cli/cli_schema.s
-
-# target to generate assembly for a file
-cli/cli_schema.cpp.s:
-	$(MAKE) -f CMakeFiles/gpack.dir/build.make CMakeFiles/gpack.dir/cli/cli_schema.cpp.s
-.PHONY : cli/cli_schema.cpp.s
-
-cli/gpack.o: cli/gpack.cpp.o
-
-.PHONY : cli/gpack.o
-
-# target to build an object file
-cli/gpack.cpp.o:
-	$(MAKE) -f CMakeFiles/gpack.dir/build.make CMakeFiles/gpack.dir/cli/gpack.cpp.o
-.PHONY : cli/gpack.cpp.o
-
-cli/gpack.i: cli/gpack.cpp.i
-
-.PHONY : cli/gpack.i
-
-# target to preprocess a source file
-cli/gpack.cpp.i:
-	$(MAKE) -f CMakeFiles/gpack.dir/build.make CMakeFiles/gpack.dir/cli/gpack.cpp.i
-.PHONY : cli/gpack.cpp.i
-
-cli/gpack.s: cli/gpack.cpp.s
-
-.PHONY : cli/gpack.s
-
-# target to generate assembly for a file
-cli/gpack.cpp.s:
-	$(MAKE) -f CMakeFiles/gpack.dir/build.make CMakeFiles/gpack.dir/cli/gpack.cpp.s
-.PHONY : cli/gpack.cpp.s
 
 test/byte.o: test/byte.cpp.o
 
@@ -306,20 +185,7 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... gpack"
 	@echo "... gpack_test"
-	@echo "... cli/cli_driver.o"
-	@echo "... cli/cli_driver.i"
-	@echo "... cli/cli_driver.s"
-	@echo "... cli/cli_msgpack.o"
-	@echo "... cli/cli_msgpack.i"
-	@echo "... cli/cli_msgpack.s"
-	@echo "... cli/cli_schema.o"
-	@echo "... cli/cli_schema.i"
-	@echo "... cli/cli_schema.s"
-	@echo "... cli/gpack.o"
-	@echo "... cli/gpack.i"
-	@echo "... cli/gpack.s"
 	@echo "... test/byte.o"
 	@echo "... test/byte.i"
 	@echo "... test/byte.s"

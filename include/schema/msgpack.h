@@ -8,7 +8,6 @@
 namespace gpack{ namespace msgpack{
 
 
-
         struct pfixint  : decl_< tags::int_     , byte_<_0,X,X,X,X,X,X,X>        , formats::tv              , std::uint8_t>  {}; 
         struct fixmap   : decl_< tags::map_     , byte_<_1,_0,_0,_0,X,X,X,X>     , formats::ts              , std::uint8_t>  {};
         struct fixarray : decl_< tags::array_   , byte_<_1,_0,_0,_1,X,X,X,X>     , formats::ts              , std::uint8_t>  {};

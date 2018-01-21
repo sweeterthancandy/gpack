@@ -25,5 +25,5 @@ include_directories(${Boost_INCLUDE_DIRS})
 add_executable( gpack_test ${test_sources} )
 target_link_libraries(gpack_test GTest::GTest GTest::Main ${Boost_LIBRARIES})
 
-add_executable( gpack ${cli_sources} )
-target_link_libraries(gpack ${Boost_LIBRARIES})
+#add_executable( gpack ${cli_sources} )
+#target_link_libraries(gpack ${Boost_LIBRARIES})
