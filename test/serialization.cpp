@@ -195,7 +195,7 @@ TEST(serialization, primitive)
         ++ri;
         EXPECT_EQ( Id_String, ri->GetTag() );
         EXPECT_EQ( static_cast<int>(hw.size()), ri->Arg0());
-        EXPECT_EQ( hw       , ri->Arg1());
+        EXPECT_EQ( "hello world" , ri->Arg1());
 
         ++ri;
         EXPECT_EQ(re, ri);
