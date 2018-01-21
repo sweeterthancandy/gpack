@@ -235,6 +235,7 @@ static std::string json_sample_text = R"(
 }
 )";
 
+
 TEST(serialization, serialize_and_then_deserialize){
         using backend_t    = vector_backend;
         using policy_t     = schema::simple;
