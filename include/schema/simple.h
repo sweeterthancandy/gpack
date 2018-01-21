@@ -7,7 +7,7 @@
 
 namespace gpack{
 namespace schema{
-namespace simple_detail{
+namespace simple_types{
 
         struct nil      : decl_< tags::nil_     , byte_<_1,_1,_0,_0,_0,_0,_0,_0> , formats::t               , std::nullptr_t>{};
         struct false_   : decl_< tags::bool_    , uchar_<0xC2>                   , formats::t               , mpl::false_>   {};
@@ -77,7 +77,7 @@ namespace simple_detail{
                 >
         {};
         
-} // simple_detail
+} // simple_types
 } // schema
 } // gpack
 

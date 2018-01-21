@@ -177,6 +177,33 @@ test/formats.cpp.s:
 	$(MAKE) -f CMakeFiles/gpack_test.dir/build.make CMakeFiles/gpack_test.dir/test/formats.cpp.s
 .PHONY : test/formats.cpp.s
 
+test/serialization.o: test/serialization.cpp.o
+
+.PHONY : test/serialization.o
+
+# target to build an object file
+test/serialization.cpp.o:
+	$(MAKE) -f CMakeFiles/gpack_test.dir/build.make CMakeFiles/gpack_test.dir/test/serialization.cpp.o
+.PHONY : test/serialization.cpp.o
+
+test/serialization.i: test/serialization.cpp.i
+
+.PHONY : test/serialization.i
+
+# target to preprocess a source file
+test/serialization.cpp.i:
+	$(MAKE) -f CMakeFiles/gpack_test.dir/build.make CMakeFiles/gpack_test.dir/test/serialization.cpp.i
+.PHONY : test/serialization.cpp.i
+
+test/serialization.s: test/serialization.cpp.s
+
+.PHONY : test/serialization.s
+
+# target to generate assembly for a file
+test/serialization.cpp.s:
+	$(MAKE) -f CMakeFiles/gpack_test.dir/build.make CMakeFiles/gpack_test.dir/test/serialization.cpp.s
+.PHONY : test/serialization.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -192,6 +219,9 @@ help:
 	@echo "... test/formats.o"
 	@echo "... test/formats.i"
 	@echo "... test/formats.s"
+	@echo "... test/serialization.o"
+	@echo "... test/serialization.i"
+	@echo "... test/serialization.s"
 .PHONY : help
 
 
