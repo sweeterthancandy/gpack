@@ -15,6 +15,7 @@
 #include "decoder.h"
 #include "equal_to.h"
 #include "dsl.h"
+#include "msgpack.h"
 
 #include "vt_context.h"
 #include "vt_serializer.h"

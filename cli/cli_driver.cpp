@@ -2,12 +2,14 @@
 
 #include <iostream>
 #include <fstream>
+#include <iterator>
 
 #include <boost/exception/all.hpp>
 
 #include "json_parser/json_parser.h"
 
 #include "cli.h"
+#include <vt_to_string.h>
 
 cli_driver::cli_driver(int argc, char const* argv[]){
 
@@ -26,6 +28,14 @@ cli_driver::cli_driver(int argc, char const* argv[]){
                 ("input-file"
                  ,po::value<std::string>()
                  ,"file to serialize")
+                ("input-binary-file"
+                 ,po::value<std::string>()
+                 ,"file to deserialize")
+                ("stdin"
+                 ,po::value<bool>()
+                 ->implicit_value(true)
+                 ->default_value(false)
+                 ,"stdin")
                 
                 ("input-string"
                  ,po::value<std::string>()
@@ -98,7 +108,8 @@ int cli_driver::run(){
                 return EXIT_SUCCESS;
         }
         // check excluisive 
-        switch( vm_.count("input-file") + vm_.count("input-string") ){
+        #if 0
+        if( vm_.count("input-file") + vm_.count("input-string")  ){
                 case 0:
                         std::cerr << "no input!\n";
                         return EXIT_FAILURE;
@@ -108,6 +119,7 @@ int cli_driver::run(){
                         std::cerr << "can only have one input source!";
                         return EXIT_FAILURE;
         }
+        #endif
 
 
         std::string json_string;
@@ -123,11 +135,42 @@ int cli_driver::run(){
                 json_string.assign(
                         std::istream_iterator<char>(fstr),
                         (std::istream_iterator<char>()));
-        } else{
-                assert( vm_.count("input-string") == 1 );
+        } else if( vm_.count("input-string") ){
 
                 json_string = vm_["input-string"].as<std::string>();
+        } else if ( vm_.count("input-binary-file") ||
+                    vm_.count("stdin") ){
+
+                std::vector<char> mem;
+                if( vm_.count("input-binary-file") ){
+                        std::string fn = vm_["input-binary-file"].as<std::string>();
+                        std::ifstream ifstr(fn, std::ifstream::binary);
+                        if( ! ifstr.is_open())
+                                BOOST_THROW_EXCEPTION(std::domain_error("can't open " + fn));
+                        mem.assign(std::istream_iterator<char>(ifstr),
+                                   (std::istream_iterator<char>()));
+                } else{
+                        mem.assign(std::istream_iterator<char>(std::cin),
+                                   (std::istream_iterator<char>()));
+                }
+
+                using policy_t     = gpack::msgpack::policy;
+                using parser_vec   = policy_t::parser_vec;
+                using decoder_t    = gpack::decoder_kernel<parser_vec>;
+                using context_t    = gpack::vt_context;
+                using subscriber_t = gpack::decoder_subscriber<decoder_t,gpack::vt_context>;
+                decoder_t dec;
+                context_t ctx;
+                dec.parse(ctx, &mem[0], &mem[0] + mem.size());
+                auto root = ctx.make();
+                gpack::display(root);
+                std::cout << "root = " << gpack::to_string(root) << "\n";
+                return EXIT_SUCCESS;
+        } else{
+                std::cout << "need an input\n";
+                return EXIT_FAILURE;
         }
+
         gpack::vt_builder m;
         if( ! json_parser::try_parse(m, json_string.begin(), json_string.end()))
         {

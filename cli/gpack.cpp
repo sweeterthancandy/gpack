@@ -11,7 +11,7 @@ int main(int argc, char* argv[]){
                         std::vector<const char*> sbuf = {
                                 "(dummy)"
                                 , "--input-file"
-                                , "myb2b_pre_outcomes.json"
+                                , "test.json"
                                 , "--checked"
                                 , nullptr
                         };
