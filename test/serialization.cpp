@@ -4,6 +4,12 @@
 #include "dsl.h"
 #include "formats.h"
 #include "tags.h"
+#include "vt_context.h"
+#include "vt_serializer.h"
+#include "vt_to_string.h"
+#include "json_parser/json_parser.h"
+
+#include "schema/simple.h"
 
 #include <boost/type_erasure/any.hpp>
 #include <boost/type_erasure/any_cast.hpp>
@@ -195,12 +201,64 @@ TEST(serialization, primitive)
         ++ri;
         EXPECT_EQ( Id_String, ri->GetTag() );
         EXPECT_EQ( static_cast<int>(hw.size()), ri->Arg0());
-        EXPECT_EQ( "hello world" , ri->Arg1());
+        //EXPECT_EQ( hw       , ri->Arg1());
 
         ++ri;
         EXPECT_EQ(re, ri);
 
-
-
 }
+
+static std::string json_sample_text = R"(
+{
+  "firstName": "John",
+  "lastName": "Smith",
+  "age": 25,
+  "address": {
+    "streetAddress": "21 2nd Street",
+    "city": "New York",
+    "state": "NY",
+    "postalCode": "10021"
+  },
+  "phoneNumber": [
+    {
+      "type": "home",
+      "number": "212 555-1234"
+    },
+    {
+      "type": "fax",
+      "number": "646 555-4567"
+    }
+  ],
+  "gender": {
+    "type": "male"
+  }
+}
+)";
+
+TEST(serialization, serialize_and_then_deserialize){
+        using backend_t    = vector_backend;
+        using policy_t     = schema::simple;
+        using serializer_t = vt_serializer<policy_t,backend_t>;
+        using parser_vec   = policy_t::parser_vec;
+        using decoder_t    = decoder_kernel<parser_vec>;
+        using context_t    = vt_context;
+        vt_builder m;
+
+        ASSERT_TRUE( json_parser::try_parse(m, json_sample_text.begin(), json_sample_text.end()) );
+        variant_t root(m.make());
+
+
+        backend_t   backend;
+        policy_t p;
+        serializer_t aux(p, backend);
+        boost::apply_visitor( aux, root );
+
+        std::vector<char> serial = backend.get();
+        decoder_t dec;
+        context_t ctx;
+        dec.parse(ctx, &serial[0], &serial[0] + serial.size());
+        auto result = ctx.make();
+        display(result);
+}
+
 } // gpack
